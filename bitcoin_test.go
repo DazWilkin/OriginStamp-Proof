@@ -28,9 +28,9 @@ var tests = map[string]struct {
 }
 
 func TestPublic(t *testing.T) {
-	for prv, result := range tests {
+	for prv, f := range tests {
 		prv = strings.ToLower(prv)
-		want := strings.ToLower(result.publicKey)
+		want := strings.ToLower(f.publicKey)
 		t.Run(prv, func(t *testing.T) {
 			got := Public(prv)
 			if got != want {
@@ -40,9 +40,9 @@ func TestPublic(t *testing.T) {
 	}
 }
 func TestAddress(t *testing.T) {
-	for _, result := range tests {
-		want := result.address
-		got := Address(result.publicKey)
+	for _, f := range tests {
+		want := f.address
+		got := Address(f.publicKey)
 		if got != want {
 			t.Errorf("got : %s\nwant: %s", got, want)
 		}
