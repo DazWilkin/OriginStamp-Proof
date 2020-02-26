@@ -5,7 +5,6 @@ import (
 	"crypto/elliptic"
 	"crypto/sha256"
 	"encoding/hex"
-	"fmt"
 	"log"
 	"math/big"
 
@@ -19,7 +18,8 @@ func Public(privateKey string) (publicKey string) {
 	e.D, _ = new(big.Int).SetString(privateKey, 16)
 	e.PublicKey.Curve = secp256k1.S256()
 	e.PublicKey.X, e.PublicKey.Y = e.PublicKey.Curve.ScalarBaseMult(e.D.Bytes())
-	return fmt.Sprintf("%x", elliptic.Marshal(secp256k1.S256(), e.X, e.Y))
+	//return fmt.Sprintf("%x", elliptic.Marshal(secp256k1.S256(), e.X, e.Y))
+	return hex.EncodeToString(elliptic.Marshal(secp256k1.S256(), e.X, e.Y))
 }
 func Address(publicKey string) (address string) {
 	h := sha256.New()
